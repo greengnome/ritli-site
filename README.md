@@ -1,6 +1,6 @@
-# Swish landing page
+# Ritli landing page
 
-A responsive landing page for the Swish iPhone focus app. Built with React, Vinext, and CSS, using the app’s real icon and product features.
+A responsive landing page for the Ritli iPhone focus app. Built with React, Vinext, and CSS, using the app’s real icon and product features.
 
 ## Local development
 
@@ -19,7 +19,7 @@ Edit `app/page.tsx` for page content and `app/globals.css` for styling. The app 
 
 ## Motion
 
-GSAP and ScrollTrigger power the staged hero entrance, section reveals, growing chart bars, task-card stagger, desktop preview tilt/parallax, and reading progress line. `app/swish-motion.tsx` scopes all animations to this page and cleans up animations, triggers, and pointer listeners on unmount. OS reduced-motion changes automatically restore the static layout. Content remains visible without JavaScript; scrolling remains native.
+GSAP and ScrollTrigger power the staged hero entrance, section reveals, growing chart bars, task-card stagger, desktop preview tilt/parallax, and reading progress line. `app/ritli-motion.tsx` scopes all animations to this page and cleans up animations, triggers, and pointer listeners on unmount. OS reduced-motion changes automatically restore the static layout. Content remains visible without JavaScript; scrolling remains native.
 
 ## Vercel deployment
 

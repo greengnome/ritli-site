@@ -1,4 +1,4 @@
-import { SwishMotion } from './swish-motion';
+import { RitliMotion } from './ritli-motion';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -20,10 +20,10 @@ function Brand({ footer = false }: { footer?: boolean }) {
     <a
       className={`brand${footer ? ' brand-footer' : ''}`}
       href="#top"
-      aria-label="Swish home"
+      aria-label="Ritli home"
     >
-      <img src="/swish-icon.png" alt="" width="42" height="42" />
-      <span>swish</span>
+      <img src="/ritli-icon.png" alt="" width="42" height="42" />
+      <span>ritli</span>
     </a>
   );
 }
@@ -32,10 +32,10 @@ function AppPreview() {
   return (
     <figure
       className="app-preview"
-      aria-label="Preview of Swish with a 25 minute focus timer and example daily progress"
+      aria-label="Preview of Ritli with a 25 minute focus timer and example daily progress"
     >
       <div className="app-heading">
-        <strong>Swish</strong>
+        <strong>Ritli</strong>
         <Settings2 size={19} />
       </div>
       <div className="selected-task">
@@ -111,11 +111,11 @@ export default function Home() {
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <SwishMotion>
+      <RitliMotion>
         <header className="site-header">
           <Brand />
           <nav aria-label="Main navigation">
-            <a href="#features">Why Swish</a>
+            <a href="#features">Why Ritli</a>
             <a href="#rhythm">Find your rhythm</a>
           </nav>
           <a className="header-cta" href="#coming-soon">
@@ -144,7 +144,7 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <a className="button button-dark" href="#features">
-                  Meet Swish <ArrowDown size={18} />
+                  Meet Ritli <ArrowDown size={18} />
                 </a>
                 <span className="availability">
                   <Smartphone size={19} />
@@ -177,7 +177,7 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <div className="principles" aria-label="Swish features">
+          <div className="principles" aria-label="Ritli features">
             <span>
               <Timer /> Focus with intention
             </span>
@@ -305,7 +305,7 @@ export default function Home() {
                 <br />
                 Just give the next thing your attention.
               </p>
-              <span className="rhythm-signature">That’s the Swish of it.</span>
+              <span className="rhythm-signature">Find your daily rhythm.</span>
             </div>
             <ol className="steps">
               <li>
@@ -343,8 +343,8 @@ export default function Home() {
             aria-labelledby="coming-title"
           >
             <img
-              src="/swish-icon.png"
-              alt="Swish app icon"
+              src="/ritli-icon.png"
+              alt="Ritli app icon"
               width="80"
               height="80"
             />
@@ -362,9 +362,9 @@ export default function Home() {
         <footer>
           <Brand footer />
           <span>A little focus goes a long way.</span>
-          <small>© {new Date().getFullYear()} Swish</small>
+          <small>© {new Date().getFullYear()} Ritli</small>
         </footer>
-      </SwishMotion>
+      </RitliMotion>
     </>
   );
 }

@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /** Progressive enhancement: the server-rendered page is visible without JS. */
-export function SwishMotion({ children }: { children: ReactNode }) {
+export function RitliMotion({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {

@@ -35,7 +35,7 @@ const localBindingConfig = {
 };
 
 export default defineConfig(async () => {
-  if (process.env.SWISH_STATIC_EXPORT === '1') {
+  if (process.env.RITLI_STATIC_EXPORT === '1') {
     // Export public HTML/assets without injecting the Sites/Workers runtime.
     return {
       css: { postcss: { plugins: [tailwindcss()] } },
