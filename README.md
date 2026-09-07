@@ -20,3 +20,9 @@ Edit `app/page.tsx` for page content and `app/globals.css` for styling. The app 
 ## Motion
 
 GSAP and ScrollTrigger power the staged hero entrance, section reveals, growing chart bars, task-card stagger, desktop preview tilt/parallax, and reading progress line. `app/swish-motion.tsx` scopes all animations to this page and cleans up animations, triggers, and pointer listeners on unmount. OS reduced-motion changes automatically restore the static layout. Content remains visible without JavaScript; scrolling remains native.
+
+## Vercel deployment
+
+Connect this repository with the project root set to the repository root. `vercel.json` selects the Other framework preset, runs `npm run build:vercel`, and serves `dist/client`. This build exports the page to static HTML and includes the JavaScript needed for GSAP animations.
+
+The standard `npm run build` still produces the original Cloudflare Worker for Sites. Its client-assets folder alone is not a deployable website because it contains no `index.html`. Use the Vercel build command when deploying on Vercel.
