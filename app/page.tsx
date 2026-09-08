@@ -362,6 +362,9 @@ export default function Home() {
         <footer>
           <Brand footer />
           <span>A little focus goes a long way.</span>
+          <nav className="footer-links" aria-label="Footer navigation">
+            <a href="/privacy">Privacy Policy</a>
+          </nav>
           <small>© {new Date().getFullYear()} Ritli</small>
         </footer>
       </RitliMotion>

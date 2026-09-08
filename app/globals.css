@@ -814,6 +814,162 @@ footer > small {
 .skip-link:focus {
   top: 15px;
 }
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.footer-links a {
+  padding: 10px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.footer-links a:hover {
+  color: var(--coral);
+}
+.privacy-shell {
+  max-width: 1320px;
+}
+.privacy-shell .privacy-header {
+  gap: 20px;
+  height: auto;
+  min-height: 100px;
+  flex-wrap: wrap;
+  padding-block: 20px;
+}
+.privacy-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 10px;
+  font-size: 0.875rem;
+}
+.privacy-back:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.privacy-intro {
+  max-width: 780px;
+  padding-block: 64px 44px;
+}
+.privacy-intro h1 {
+  margin-block: 16px 24px;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.06;
+}
+.privacy-intro p + p {
+  margin-top: 16px;
+}
+.privacy-intro .privacy-meta {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+.privacy-intro a,
+.privacy-body a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+}
+.privacy-intro a:hover,
+.privacy-body a:hover {
+  text-decoration-thickness: 2px;
+}
+.privacy-layout {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 60px;
+  padding-block: 40px 72px;
+  border-top: 1px solid var(--border);
+}
+.privacy-contents {
+  position: sticky;
+  top: 32px;
+  align-self: start;
+}
+.privacy-contents p {
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.privacy-contents ol {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+}
+.privacy-contents a {
+  display: block;
+  padding-block: 8px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+.privacy-contents a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.privacy-body {
+  min-width: 0;
+  max-width: 72ch;
+}
+.privacy-body section + section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.privacy-body h2 {
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  margin-bottom: 18px;
+}
+.privacy-body p,
+.privacy-body li,
+.privacy-body address {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+.privacy-body p + p {
+  margin-top: 18px;
+}
+.privacy-body ul {
+  padding-left: 24px;
+  margin-block: 18px;
+}
+.privacy-body li + li {
+  margin-top: 10px;
+}
+.privacy-body address {
+  font-style: normal;
+}
+.privacy-footer {
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 900px) {
+  .privacy-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+  .privacy-contents {
+    position: static;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .privacy-intro {
+    padding-block: 40px 32px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 @media (min-width: 1500px) {
   .hero {
     min-height: 780px;
