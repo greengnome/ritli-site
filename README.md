@@ -17,7 +17,7 @@ npm run dev
 npm run build
 ```
 
-Edit `app/page.tsx` for page content and `app/globals.css` for styling. The app is currently labeled “Coming soon to iPhone.” Replace the availability badges with the verified App Store link when it is live. The interface and chart on this page show example activity, not user data.
+Edit `app/page.tsx` for page content and `app/globals.css` for styling. The header, hero, and closing calls to action use the shared `TESTFLIGHT_URL` in `app/page.tsx`: [join the Ritli beta](https://testflight.apple.com/join/5WhnPpFG). Deploy these calls to action to production only after Apple approves the external beta and the public link accepts testers. These links do not publish the app to the App Store. Add the verified App Store link when the app is publicly released. The interface and chart on this page show example activity, not user data.
 
 ## Privacy policy
 

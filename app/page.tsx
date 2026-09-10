@@ -1,6 +1,5 @@
 import { RitliMotion } from './ritli-motion';
 import {
-  ArrowDown,
   ArrowUpRight,
   BarChart3,
   Check,
@@ -14,6 +13,8 @@ import {
   Smartphone,
   Timer,
 } from 'lucide-react';
+
+const TESTFLIGHT_URL = 'https://testflight.apple.com/join/5WhnPpFG';
 
 function Brand({ footer = false }: { footer?: boolean }) {
   return (
@@ -118,8 +119,12 @@ export default function Home() {
             <a href="#features">Why Ritli</a>
             <a href="#rhythm">Find your rhythm</a>
           </nav>
-          <a className="header-cta" href="#coming-soon">
-            Made for iPhone <ArrowUpRight size={16} />
+          <a
+            className="header-cta"
+            href={TESTFLIGHT_URL}
+            aria-label="Join the Ritli beta on TestFlight"
+          >
+            Join the beta <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         </header>
         <main id="main">
@@ -143,15 +148,15 @@ export default function Home() {
                 focus timer that turns good intentions into a little more done.
               </p>
               <div className="hero-actions">
-                <a className="button button-dark" href="#features">
-                  Meet Ritli <ArrowDown size={18} />
+                <a className="button button-dark" href={TESTFLIGHT_URL}>
+                  Join TestFlight beta <ArrowUpRight size={18} aria-hidden="true" />
                 </a>
                 <span className="availability">
-                  <Smartphone size={19} />
+                  <Smartphone size={19} aria-hidden="true" />
                   <span>
-                    Coming soon
+                    Made for
                     <br />
-                    <strong>to iPhone</strong>
+                    <strong>iPhone</strong>
                   </span>
                 </span>
               </div>
@@ -353,10 +358,11 @@ export default function Home() {
               A little more present.
               <br />A little more possible.
             </h2>
-            <p>A calmer way to get things done is on its way.</p>
-            <span className="coming-badge">
-              <Smartphone size={20} /> Coming soon to iPhone
-            </span>
+            <p>Help shape Ritli before its App Store release.</p>
+            <a className="coming-badge button button-dark" href={TESTFLIGHT_URL}>
+              <Smartphone size={20} aria-hidden="true" /> Join TestFlight beta
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
           </section>
         </main>
         <footer>
