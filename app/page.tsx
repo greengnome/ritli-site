@@ -1,8 +1,6 @@
 import { RitliIcon, SiteFooter, SiteHeader, TESTFLIGHT_URL } from './brand';
 import { RitliExperience } from './ritli-experience';
 import { RitliMark, SessionStory } from './session-story';
-import Link from 'next/link';
-
 export default function Home() {
   return (
     <>
@@ -78,9 +76,9 @@ export default function Home() {
                 </span>
               </div>
             </div>
-            <Link className="private-link" href="/privacy">
+            <a className="private-link" href="/privacy">
               Read the privacy policy
-            </Link>
+            </a>
           </div>
         </section>
 

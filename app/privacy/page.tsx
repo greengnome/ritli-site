@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { ArrowLeft } from 'lucide-react';
 import { SiteFooter, SiteHeader } from '../brand';
-import Link from 'next/link';
-
 export const metadata: Metadata = {
   title: 'Privacy Policy — Ritli',
   description:
@@ -27,9 +25,9 @@ export default function PrivacyPolicy() {
         Skip to content
       </a>
       <SiteHeader>
-        <Link className="back-link" href="/">
+        <a className="back-link" href="/">
           <ArrowLeft size={16} aria-hidden="true" /> Back to Ritli
-        </Link>
+        </a>
       </SiteHeader>
 
       <main id="main">

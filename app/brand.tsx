@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export const TESTFLIGHT_URL = 'https://testflight.apple.com/join/5WhnPpFG';
 
 /** The app icon's mark: a rounded "r" and a small tomato, on its ink tile. */
@@ -33,10 +31,10 @@ export function RitliIcon({ size = 40 }: { size?: number }) {
 export function SiteHeader({ children }: { children?: React.ReactNode }) {
   return (
     <header className="site-header">
-      <Link className="brand" href="/" aria-label="Ritli home">
+      <a className="brand" href="/" aria-label="Ritli home">
         <RitliIcon />
         <span>ritli</span>
-      </Link>
+      </a>
       {children}
     </header>
   );
@@ -45,19 +43,19 @@ export function SiteHeader({ children }: { children?: React.ReactNode }) {
 export function SiteFooter({ current }: { current?: 'home' | 'privacy' }) {
   return (
     <footer className="site-footer">
-      <Link className="brand" href="/" aria-label="Ritli home">
+      <a className="brand" href="/" aria-label="Ritli home">
         <span>ritli</span>
-      </Link>
+      </a>
       <nav className="footer-links" aria-label="Footer navigation">
-        <Link href="/" aria-current={current === 'home' ? 'page' : undefined}>
+        <a href="/" aria-current={current === 'home' ? 'page' : undefined}>
           Home
-        </Link>
-        <Link
+        </a>
+        <a
           href="/privacy"
           aria-current={current === 'privacy' ? 'page' : undefined}
         >
           Privacy Policy
-        </Link>
+        </a>
       </nav>
       <small>© {new Date().getFullYear()} Ritli</small>
     </footer>
