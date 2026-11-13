@@ -184,6 +184,7 @@ const TaskScene = () => {
                 width: 64,
                 height: 64,
                 borderRadius: 32,
+                position: 'relative',
                 background:
                   i === 0 && frame >= 64 ? 'var(--terra)' : 'var(--sand)',
                 display: 'flex',
@@ -195,6 +196,26 @@ const TaskScene = () => {
                     : 1,
               }}
             >
+              {i === 0 && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    borderRadius: 32,
+                    border: '3px solid var(--terra)',
+                    scale: interpolate(frame, [62, 84], [1, 1.9], {
+                      ...clamp,
+                      easing: easeOut,
+                    }),
+                    opacity: interpolate(
+                      frame,
+                      [62, 64, 84],
+                      [0, 0.7, 0],
+                      clamp,
+                    ),
+                  }}
+                />
+              )}
               <svg width="22" height="22" viewBox="0 0 16 16">
                 <path
                   d="M4 2.5v11a.8.8 0 0 0 1.2.7l8.6-5.5a.8.8 0 0 0 0-1.4L5.2 1.8A.8.8 0 0 0 4 2.5z"
@@ -205,33 +226,6 @@ const TaskScene = () => {
           </div>
         ))}
       </Interactive.Div>
-
-      {/* A fingertip that taps the first task's play button. */}
-      <Interactive.Div
-        name="Finger"
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: 56,
-          height: 56,
-          borderRadius: 28,
-          background: 'var(--ink)',
-          opacity: interpolate(
-            frame,
-            [26, 36, 82, 92],
-            [0, 0.22, 0.22, 0],
-            clamp,
-          ),
-          translate: interpolate(
-            frame,
-            [26, 58],
-            ['560px 600px', '560px 216px'],
-            { ...clamp, easing: easeOut },
-          ),
-          scale: interpolate(frame, [58, 64, 72], [1, 0.8, 1], clamp),
-        }}
-      />
     </AbsoluteFill>
   );
 };
@@ -364,7 +358,7 @@ const FocusScene = () => {
             style={{
               fontFamily: 'var(--display)',
               fontWeight: 900,
-              fontSize: 84,
+              fontSize: 64,
               lineHeight: 1,
               fontVariantNumeric: 'tabular-nums',
             }}
@@ -439,7 +433,7 @@ const BreakScene = () => {
             style={{
               fontFamily: 'var(--display)',
               fontWeight: 900,
-              fontSize: 84,
+              fontSize: 64,
               lineHeight: 1,
               fontVariantNumeric: 'tabular-nums',
             }}

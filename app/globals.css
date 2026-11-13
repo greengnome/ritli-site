@@ -407,6 +407,8 @@ h2.display {
   width: 78%;
   aspect-ratio: 1;
   align-self: center;
+  /* The countdown is sized from the dial so it always clears the cycle ring. */
+  container-type: inline-size;
 }
 .dial svg {
   width: 100%;
@@ -427,12 +429,12 @@ h2.display {
 .dial-center .time {
   font-family: var(--display);
   font-weight: 900;
-  font-size: clamp(40px, 13vw, 52px);
+  font-size: 17cqw;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 .dial-center small {
-  font-size: 12px;
+  font-size: clamp(11px, 4.6cqw, 13px);
   color: var(--scr-dim);
   margin-top: 4px;
 }
