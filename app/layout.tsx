@@ -1,10 +1,27 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
+
 export const metadata: Metadata = {
-  title: 'Ritli — A little focus. A lot forward.',
-  description: 'Make room for what matters. Ritli brings focus timers, thoughtful task planning, and clear progress insights together on your iPhone. Explore the beta on TestFlight.',
+  title: 'Ritli: a calm focus timer for iPhone',
+  description:
+    'Pick one thing and give it 25 minutes. Ritli is a focus timer for iPhone with tasks, real breaks, a Lock Screen timer and clear weekly stats. Join the beta on TestFlight.',
   icons: { icon: '/ritli-icon.png', apple: '/ritli-icon.png' },
 };
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#faf7f2' },
+    { media: '(prefers-color-scheme: dark)', color: '#171412' },
+  ],
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
 }

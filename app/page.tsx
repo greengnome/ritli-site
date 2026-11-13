@@ -1,379 +1,108 @@
-import { RitliMotion } from './ritli-motion';
-import {
-  ArrowUpRight,
-  BarChart3,
-  Check,
-  ChevronDown,
-  CircleCheck,
-  Clock3,
-  Coffee,
-  ListTodo,
-  Play,
-  Settings2,
-  Smartphone,
-  Timer,
-} from 'lucide-react';
-
-const TESTFLIGHT_URL = 'https://testflight.apple.com/join/5WhnPpFG';
-
-function Brand({ footer = false }: { footer?: boolean }) {
-  return (
-    <a
-      className={`brand${footer ? ' brand-footer' : ''}`}
-      href="#top"
-      aria-label="Ritli home"
-    >
-      <img src="/ritli-icon.png" alt="" width="42" height="42" />
-      <span>ritli</span>
-    </a>
-  );
-}
-
-function AppPreview() {
-  return (
-    <figure
-      className="app-preview"
-      aria-label="Preview of Ritli with a 25 minute focus timer and example daily progress"
-    >
-      <div className="app-heading">
-        <strong>Ritli</strong>
-        <Settings2 size={19} />
-      </div>
-      <div className="selected-task">
-        <span className="task-symbol">
-          <ListTodo size={17} />
-        </span>
-        <div>
-          <small>TIME TO WORK ON</small>
-          <strong>Make something great</strong>
-        </div>
-        <ChevronDown size={16} />
-      </div>
-      <div className="timer-card">
-        <div className="timer-top">
-          <span>
-            <i /> Focus <ChevronDown size={12} />
-          </span>
-          <small>25 min</small>
-        </div>
-        <div className="timer-ring">
-          <div>
-            <strong>25:00</strong>
-            <span>One thing at a time</span>
-          </div>
-        </div>
-        <div className="preview-start">
-          <Play size={15} fill="currentColor" /> Start Focus
-        </div>
-      </div>
-      <div className="today-heading">
-        <strong>Today’s progress</strong>
-        <span>View all</span>
-      </div>
-      <div className="today-stats">
-        <div>
-          <Clock3 />
-          <strong>1h 40m</strong>
-          <span>Focus time</span>
-        </div>
-        <div>
-          <CircleCheck />
-          <strong>4</strong>
-          <span>Sessions</span>
-        </div>
-        <div>
-          <ListTodo />
-          <strong>2</strong>
-          <span>Tasks done</span>
-        </div>
-      </div>
-      <div className="app-tabs">
-        <span className="active">
-          <Timer />
-          Focus
-        </span>
-        <span>
-          <ListTodo />
-          Tasks
-        </span>
-        <span>
-          <BarChart3 />
-          Stats
-        </span>
-      </div>
-      <figcaption>APP PREVIEW · EXAMPLE ACTIVITY</figcaption>
-    </figure>
-  );
-}
-
+import { RitliIcon, SiteFooter, SiteHeader, TESTFLIGHT_URL } from './brand';
+import { RitliExperience } from './ritli-experience';
+import { RitliMark, SessionStory } from './session-story';
 export default function Home() {
   return (
     <>
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <RitliMotion>
-        <header className="site-header">
-          <Brand />
-          <nav aria-label="Main navigation">
-            <a href="#features">Why Ritli</a>
-            <a href="#rhythm">Find your rhythm</a>
+      <div className="progress" aria-hidden="true" />
+      <div className="wrap">
+        <SiteHeader>
+          <nav className="site-nav" aria-label="Sections">
+            <a href="#how">How it works</a>
+            <a href="#lock">Lock Screen</a>
+            <a href="#week">Your week</a>
+            <a href="#privacy">Privacy</a>
           </nav>
-          <a
-            className="header-cta"
-            href={TESTFLIGHT_URL}
-            aria-label="Join the Ritli beta on TestFlight"
-          >
-            Join the beta <ArrowUpRight size={16} aria-hidden="true" />
+          <a className="cta small" href={TESTFLIGHT_URL}>
+            Join the beta
           </a>
-        </header>
-        <main id="main">
-          <section className="hero" aria-labelledby="hero-title">
-            <div className="hero-copy">
-              <span className="eyebrow">
-                <span className="status-dot" /> A LITTLE SPACE FOR WHAT MATTERS
-              </span>
-              <h1 id="hero-title">
-                <span className="headline-mask">
-                  <span className="headline-line">A little focus.</span>
-                </span>
-                <span className="headline-mask">
-                  <span className="headline-line hero-accent">
-                    A lot forward.
-                  </span>
-                </span>
-              </h1>
-              <p>
-                Your next chapter starts with the next 25 minutes. Meet the
-                focus timer that turns good intentions into a little more done.
-              </p>
-              <div className="hero-actions">
-                <a className="button button-dark" href={TESTFLIGHT_URL}>
-                  Join TestFlight beta <ArrowUpRight size={18} aria-hidden="true" />
-                </a>
-                <span className="availability">
-                  <Smartphone size={19} aria-hidden="true" />
-                  <span>
-                    Made for
-                    <br />
-                    <strong>iPhone</strong>
-                  </span>
-                </span>
-              </div>
-              <div className="hero-note">
-                <span>Less switching.</span>
-                <span>More doing.</span>
-                <span>Room to breathe.</span>
-              </div>
-            </div>
-            <div className="hero-product">
-              <span className="product-caption">YOUR TIME, WELL SPENT.</span>
-              <div className="preview-wrap">
-                <AppPreview />
-                <div className="break-note">
-                  <span className="break-icon">
-                    <Coffee size={21} />
-                  </span>
-                  <div>
-                    <strong>And room for a break.</strong>
-                    <span>Good work needs a little rest.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          <div className="principles" aria-label="Ritli features">
-            <span>
-              <Timer /> Focus with intention
-            </span>
-            <span>
-              <ListTodo /> Give your tasks a plan
-            </span>
-            <span>
-              <BarChart3 /> See your progress
-            </span>
-          </div>
-          <section
-            id="features"
-            className="features section"
-            aria-labelledby="features-title"
-          >
-            <div className="section-heading">
-              <div>
-                <span className="eyebrow">SMALL SESSIONS. REAL PROGRESS.</span>
-                <h2 id="features-title">
-                  Find your focus.
-                  <br />
-                  Keep your momentum.
-                </h2>
-              </div>
-              <p>
-                Everything you need to get into your work,
-                <br className="desktop-break" /> and feel good stepping away
-                from it.
-              </p>
-            </div>
-            <div className="feature-grid">
-              <article className="feature-card task-feature">
-                <span className="feature-index">01 / A CLEAR NEXT STEP</span>
-                <div className="task-list" aria-label="Example tasks">
-                  <div>
-                    <span className="task-check">
-                      <Check size={13} />
-                    </span>
-                    <span className="completed-task">Read a chapter</span>
-                    <span className="task-category green">Personal</span>
-                  </div>
-                  <div>
-                    <span className="task-check empty" />
-                    <span>Shape the big idea</span>
-                    <span className="task-category">Work</span>
-                  </div>
-                  <div>
-                    <span className="task-check empty purple-border" />
-                    <span>Practice Spanish</span>
-                    <span className="task-category purple">Learning</span>
-                  </div>
-                </div>
-                <h3>A home for your to-dos.</h3>
-                <p>
-                  Organize tasks by category, give them a routine, and start a
-                  focus session right from your list.
-                </p>
-              </article>
-              <article className="feature-card routine-feature">
-                <span className="feature-index">02 / YOUR KIND OF FLOW</span>
-                <div className="routine-demo">
-                  <div>
-                    <Timer size={19} />
-                    <strong>25</strong>
-                    <span>Focus</span>
-                  </div>
-                  <span className="routine-divider">/</span>
-                  <div>
-                    <Coffee size={19} />
-                    <strong>5</strong>
-                    <span>Rest</span>
-                  </div>
-                  <span className="minutes-label">MINUTES, MADE YOURS</span>
-                </div>
-                <h3>A rhythm that fits you.</h3>
-                <p>
-                  Set your own focus and break lengths. Save routines for the
-                  work that deserves a different pace.
-                </p>
-              </article>
-              <article className="feature-card stats-feature">
-                <span className="feature-index">03 / THE BIGGER PICTURE</span>
-                <div
-                  className="chart-demo"
-                  aria-label="Illustrative focus activity across a week"
-                >
-                  <div className="chart-title">
-                    <span>Focus this week</span>
-                    <BarChart3 size={16} />
-                  </div>
-                  <div className="bars">
-                    {[38, 61, 47, 86, 67, 100, 54].map((height, i) => (
-                      <div key={i}>
-                        <span
-                          style={{ height: `${height}%` }}
-                          className={i === 5 ? 'highlight-bar' : ''}
-                        />
-                        <small>{['M', 'T', 'W', 'T', 'F', 'S', 'S'][i]}</small>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <h3>Watch the effort add up.</h3>
-                <p>
-                  Explore your focus time, session history, and category
-                  breakdowns. See where your attention goes.
-                </p>
-              </article>
-            </div>
-          </section>
-          <section
-            id="rhythm"
-            className="rhythm section"
-            aria-labelledby="rhythm-title"
-          >
-            <div className="rhythm-intro">
-              <span className="eyebrow">ONE THING AT A TIME</span>
-              <h2 id="rhythm-title">
-                Big plans.
-                <br />
-                Small beginnings.
-              </h2>
-              <p>
-                You don’t have to do it all right now.
-                <br />
-                Just give the next thing your attention.
-              </p>
-              <span className="rhythm-signature">Find your daily rhythm.</span>
-            </div>
-            <ol className="steps">
-              <li>
-                <span className="step-number">01</span>
-                <div>
-                  <h3>Pick one thing.</h3>
-                  <p>Choose a task, or start a session with a clean slate.</p>
-                </div>
-              </li>
-              <li>
-                <span className="step-number">02</span>
-                <div>
-                  <h3>Give it your focus.</h3>
-                  <p>
-                    Settle in. Your timer stays with you through Live
-                    Activities, even on your Lock Screen.
+        </SiteHeader>
+      </div>
+
+      <main id="main">
+        <RitliExperience
+          story={
+            <section id="how" className="band" aria-labelledby="how-title">
+              <div className="wrap">
+                <div className="how-head rise">
+                  <h2 id="how-title" className="display">
+                    How a session goes.
+                  </h2>
+                  <p className="lede">
+                    Four steps, about half an hour, and the screen always tells
+                    you which one you&apos;re in.
                   </p>
                 </div>
-              </li>
-              <li>
-                <span className="step-number">03</span>
-                <div>
-                  <h3>Take a breath. Go again.</h3>
-                  <p>
-                    Make space for a short break, then come back ready for the
-                    next little step.
-                  </p>
-                </div>
-              </li>
-            </ol>
-          </section>
-          <section
-            id="coming-soon"
-            className="coming-soon"
-            aria-labelledby="coming-title"
-          >
-            <img
-              src="/ritli-icon.png"
-              alt="Ritli app icon"
-              width="80"
-              height="80"
-            />
-            <span className="eyebrow">GOOD THINGS TAKE A LITTLE FOCUS</span>
-            <h2 id="coming-title">
-              A little more present.
-              <br />A little more possible.
+                <SessionStory />
+              </div>
+            </section>
+          }
+        />
+
+        <section
+          id="privacy"
+          className="private band"
+          aria-labelledby="privacy-title"
+        >
+          <div className="wrap">
+            <h2 id="privacy-title" className="display rise">
+              Your tasks stay on your iPhone.
             </h2>
-            <p>Help shape Ritli before its App Store release.</p>
-            <a className="coming-badge button button-dark" href={TESTFLIGHT_URL}>
-              <Smartphone size={20} aria-hidden="true" /> Join TestFlight beta
-              <ArrowUpRight size={18} aria-hidden="true" />
+            <p className="lede rise">
+              Ritli keeps your tasks, routines and session history on your
+              device. It doesn&apos;t send them to a server.
+            </p>
+            <div className="facts">
+              <div>
+                <b>No account</b>
+                <span>
+                  Open the app and start. There is nothing to sign up for.
+                </span>
+              </div>
+              <div>
+                <b>No ads or analytics</b>
+                <span>
+                  No advertising, no third-party analytics, no cross-app
+                  tracking.
+                </span>
+              </div>
+              <div>
+                <b>Private Lock Screen</b>
+                <span>
+                  Task names appear on the Lock Screen only if you choose.
+                </span>
+              </div>
+            </div>
+            <a className="private-link" href="/privacy">
+              Read the privacy policy
             </a>
-          </section>
-        </main>
-        <footer>
-          <Brand footer />
-          <span>A little focus goes a long way.</span>
-          <nav className="footer-links" aria-label="Footer navigation">
-            <a href="/privacy">Privacy Policy</a>
-          </nav>
-          <small>© {new Date().getFullYear()} Ritli</small>
-        </footer>
-      </RitliMotion>
+          </div>
+        </section>
+
+        <section className="band" aria-labelledby="close-title">
+          <div className="wrap close">
+            <RitliMark />
+            <h2 id="close-title" className="display rise">
+              Try Ritli before it reaches the App Store.
+            </h2>
+            <p className="lede rise">
+              Join the TestFlight beta on your iPhone and tell us what to make
+              better.
+            </p>
+            <a className="cta" href={TESTFLIGHT_URL}>
+              <RitliIcon size={22} />
+              Join the beta on TestFlight
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <div className="wrap">
+        <SiteFooter current="home" />
+      </div>
     </>
   );
 }
