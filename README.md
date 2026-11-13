@@ -1,6 +1,6 @@
 # Ritli landing page
 
-A responsive landing page for the Ritli iPhone focus app. Built with React, Vinext, and CSS, using the app’s real icon and product features.
+A responsive landing page for the Ritli iPhone focus app. Built with React, Vinext, CSS and Remotion, using the app’s real icon and product features.
 
 ## Local development
 
@@ -17,7 +17,7 @@ npm run dev
 npm run build
 ```
 
-Edit `app/page.tsx` for page content and `app/globals.css` for styling. The header, hero, and closing calls to action use the shared `TESTFLIGHT_URL` in `app/page.tsx`: [join the Ritli beta](https://testflight.apple.com/join/5WhnPpFG). Deploy these calls to action to production only after Apple approves the external beta and the public link accepts testers. These links do not publish the app to the App Store. Add the verified App Store link when the app is publicly released. The interface and chart on this page show example activity, not user data.
+Edit `app/page.tsx` for page content and `app/globals.css` for styling. The header, hero, and closing calls to action use the shared `TESTFLIGHT_URL` in `app/page.tsx`: [join the Ritli beta](https://testflight.apple.com/join/5WhnPpFG). Deploy these calls to action to production only after Apple approves the external beta and the public link accepts testers. These links do not publish the app to the App Store. Add the verified App Store link when the app is publicly released. The timer, tasks and chart on this page show example activity, not user data.
 
 ## Privacy policy
 
@@ -27,12 +27,10 @@ Before publishing, verify Vercel's enabled services and visitor-data handling, c
 
 ## Motion
 
-GSAP and ScrollTrigger power the staged hero entrance, section reveals, growing chart bars, task-card stagger, desktop preview tilt/parallax, and reading progress line. `app/ritli-motion.tsx` scopes all animations to this page and cleans up animations, triggers, and pointer listeners on unmount. OS reduced-motion changes automatically restore the static layout. Content remains visible without JavaScript; scrolling remains native.
+The page has three kinds of motion, all optional:
 
-## Vercel deployment
+- **Live timer** (`app/ritli-experience.tsx`): a working Ritli timer in the hero. The Lock Screen card, the task list and the week chart read from the same state, so a session finished in the hero lands on a task and on today's bar. The tasks and the week are example data.
+- **Remotion films** (`app/remotion/compositions.tsx`, played by `app/session-story.tsx` with `@remotion/player`): the "How a session goes" walkthrough and the animated logo in the closing section. The Player renders only after hydration, plays while it is on screen, and shows a still frame with Reduce Motion. The films use the page's CSS colour tokens, so they follow light and dark mode.
+- **Scroll-driven CSS** (end of `app/globals.css`): sections rise in, coloured bands open to full width, and a reading-progress bar runs along the top. It uses `animation-timeline`, so browsers without support and visitors with Reduce Motion see the finished page.
 
-Connect this repository with the project root set to the repository root. `vercel.json` selects the Other framework preset, runs `npm run build:vercel`, and serves `dist/client`. This build exports the page to static HTML and includes the JavaScript needed for GSAP animations.
-
-Vercel uses the `engines.node` setting in `package.json` to select Node 24 for new builds, overriding the dashboard's Node version. Existing deployments are unchanged until redeployed. [Vercel's supported Node.js versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions).
-
-The standard `npm run build` still produces the original Cloudflare Worker for Sites. Its client-assets folder alone is not a deployable website because it contains no `index.html`. Use the Vercel build command when deploying on Vercel.
+Colours, type and the icon follow the iOS app's redesign: paper, ink, coral and terracotta, leaf green for breaks, Nunito for headings and Inter for text (loaded from Google Fonts).

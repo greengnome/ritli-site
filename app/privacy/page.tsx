@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { ArrowLeft } from 'lucide-react';
+import { SiteFooter, SiteHeader } from '../brand';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Ritli',
@@ -20,19 +22,15 @@ const sections = [
 
 export default function PrivacyPolicy() {
   return (
-    <div className="page-shell privacy-shell">
+    <div className="wrap">
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <header className="site-header privacy-header">
-        <a className="brand" href="/" aria-label="Ritli home">
-          <img src="/ritli-icon.png" alt="" width="42" height="42" />
-          <span>ritli</span>
-        </a>
-        <a className="privacy-back" href="/">
+      <SiteHeader>
+        <Link className="back-link" href="/">
           <ArrowLeft size={16} aria-hidden="true" /> Back to Ritli
-        </a>
-      </header>
+        </Link>
+      </SiteHeader>
 
       <main id="main">
         <header className="privacy-intro">
@@ -265,19 +263,7 @@ export default function PrivacyPolicy() {
         </div>
       </main>
 
-      <footer className="privacy-footer">
-        <a className="brand brand-footer" href="/" aria-label="Ritli home">
-          <img src="/ritli-icon.png" alt="" width="31" height="31" />
-          <span>ritli</span>
-        </a>
-        <nav className="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/privacy" aria-current="page">
-            Privacy Policy
-          </a>
-        </nav>
-        <small>© {new Date().getFullYear()} Ritli</small>
-      </footer>
+      <SiteFooter current="privacy" />
     </div>
   );
 }
