@@ -586,6 +586,92 @@ h2.display {
   border-radius: 28px;
   overflow: hidden;
   background: var(--sand);
+  position: relative;
+  container-type: inline-size;
+}
+.story-player {
+  position: absolute;
+  inset: 0;
+}
+
+/*
+ * The story's opening frame, drawn in CSS while Remotion loads. Sizes are in
+ * composition pixels (the film is 720 wide), so it lines up with the player.
+ */
+.story-poster {
+  --u: calc(100cqw / 720);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.poster-card {
+  width: calc(var(--u) * 560);
+  padding: calc(var(--u) * 10) calc(var(--u) * 28);
+  border-radius: calc(var(--u) * 32);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+.poster-row {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 20);
+  min-height: calc(var(--u) * 104);
+  border-bottom: calc(var(--u) * 2) solid var(--hair);
+}
+.poster-row:last-child {
+  border-bottom: 0;
+}
+.poster-check {
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 34);
+  border-radius: 50%;
+  border: calc(var(--u) * 3) solid var(--stone);
+  opacity: 0.6;
+  box-sizing: border-box;
+}
+.poster-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 4);
+  font-family: var(--text);
+  font-size: calc(var(--u) * 20);
+  color: var(--stone);
+}
+.poster-text b {
+  font-weight: 600;
+  font-size: calc(var(--u) * 28);
+  color: var(--ink);
+}
+.poster-dots {
+  display: flex;
+  gap: calc(var(--u) * 6);
+}
+.poster-dots span {
+  width: calc(var(--u) * 13);
+  height: calc(var(--u) * 13);
+  border-radius: 50%;
+  border: calc(var(--u) * 2.5) solid var(--stone);
+  box-sizing: border-box;
+}
+.poster-dots span[data-on='true'] {
+  border: 0;
+  background: var(--coral);
+}
+.poster-play {
+  width: calc(var(--u) * 64);
+  height: calc(var(--u) * 64);
+  border-radius: 50%;
+  background: var(--sand);
+  display: grid;
+  place-items: center;
+}
+.poster-play svg {
+  width: calc(var(--u) * 22);
+  height: calc(var(--u) * 22);
+  fill: var(--terra-ink);
 }
 .story-steps {
   min-width: 0;
@@ -642,20 +728,6 @@ h2.display {
   height: 100%;
   background: var(--coral);
   border-radius: 2px;
-}
-.story-fallback {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 12px;
-  font-size: 17px;
-  color: var(--stone);
-}
-.story-fallback b {
-  font-family: var(--display);
-  font-weight: 900;
-  color: var(--ink);
 }
 .story-toggle {
   align-self: flex-start;

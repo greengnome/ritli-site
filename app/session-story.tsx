@@ -1,15 +1,68 @@
 'use client';
 
-import { Player, type PlayerRef } from '@remotion/player';
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import type { PlayerRef } from '@remotion/player';
 import {
-  FPS,
-  Mark,
-  MARK_DURATION,
+  Component,
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
+import {
   STORY_DURATION,
+  STORY_POSTER_FRAME,
   STORY_STEPS,
-  Story,
-} from './remotion/compositions';
+  STORY_STILL_FRAME,
+} from './remotion/timeline';
+
+/*
+ * Remotion is the largest thing on the page, so it loads in its own chunk:
+ * once the browser is idle after load, or as soon as a film nears the screen.
+ * Until then each film shows a still that matches its first played frame.
+ */
+let playersModule: Promise<typeof import('./remotion/players')> | undefined;
+const loadPlayers = () =>
+  (playersModule ??= import('./remotion/players').catch((error: unknown) => {
+    playersModule = undefined;
+    throw error;
+  }));
+const StoryPlayer = lazy(() =>
+  loadPlayers().then((m) => ({ default: m.StoryPlayer })),
+);
+const MarkPlayer = lazy(() =>
+  loadPlayers().then((m) => ({ default: m.MarkPlayer })),
+);
+
+/** If the players can't load, the stills stay; the rest of the page carries on. */
+class KeepStill extends Component<
+  { children: React.ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
+function prefetchPlayersWhenIdle() {
+  const start = () => {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => void loadPlayers().catch(() => {}), {
+        timeout: 2500,
+      });
+    } else {
+      setTimeout(() => void loadPlayers().catch(() => {}), 1200);
+    }
+  };
+  if (document.readyState === 'complete') start();
+  else window.addEventListener('load', start, { once: true });
+}
 
 const REDUCE_MOTION = '(prefers-reduced-motion: reduce)';
 
@@ -28,68 +81,97 @@ function useReducedMotion() {
   );
 }
 
-/** True only after hydration, so the Player never renders on the server. */
-function useIsClient() {
-  return useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
-}
-
-/** Plays while at least a third of the film is on screen, pauses otherwise. */
-function usePlayWhenVisible(
-  player: React.RefObject<PlayerRef | null>,
-  container: React.RefObject<HTMLDivElement | null>,
-  enabled: boolean,
-) {
+/**
+ * Whether the element is near the screen (`near`, sticky: once true it stays
+ * true, which is when its player loads) and whether enough of it is on screen
+ * to play (`visible`).
+ */
+function useViewport(node: React.RefObject<HTMLElement | null>) {
+  const [near, setNear] = useState(false);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const node = container.current;
-    if (!node || !enabled) return undefined;
-    const observer = new IntersectionObserver(
+    const element = node.current;
+    if (!element) return undefined;
+    const nearObserver = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) player.current?.play();
-          else player.current?.pause();
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setNear(true);
+          nearObserver.disconnect();
         }
       },
-      { threshold: 0.35 },
+      { rootMargin: '900px 0px' },
     );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [player, container, enabled]);
+    const visibleObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) setVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 },
+    );
+    nearObserver.observe(element);
+    visibleObserver.observe(element);
+    return () => {
+      nearObserver.disconnect();
+      visibleObserver.disconnect();
+    };
+  }, [node]);
+  return { near, visible };
 }
 
-const FALLBACK = (
-  <ol className="story-fallback">
-    {STORY_STEPS.map((step) => (
-      <li key={step.title}>
-        <b>{step.title}.</b> {step.body}
-      </li>
-    ))}
-  </ol>
+/** Plays while the player exists, is on screen and is wanted; pauses otherwise. */
+function usePlayback(
+  player: React.RefObject<PlayerRef | null>,
+  shouldPlay: boolean,
+) {
+  useEffect(() => {
+    if (shouldPlay) player.current?.play();
+    else player.current?.pause();
+  }, [player, shouldPlay]);
+}
+
+/** The opening of the story, drawn without Remotion. Matches STORY_POSTER_FRAME. */
+const STORY_POSTER = (
+  <div className="story-poster" aria-hidden="true">
+    <div className="poster-card">
+      {[
+        { title: 'Write project brief', meta: 'Work', dots: [1, 0, 0, 0] },
+        { title: 'Read chapter 5', meta: 'Study', dots: [1, 1, 0] },
+        { title: 'Plan the weekend trip', meta: 'Personal', dots: [0] },
+      ].map((task) => (
+        <div className="poster-row" key={task.title}>
+          <span className="poster-check" />
+          <span className="poster-text">
+            <b>{task.title}</b>
+            <span>{task.meta}</span>
+          </span>
+          <span className="poster-dots">
+            {task.dots.map((on, i) => (
+              <span key={i} data-on={on ? 'true' : 'false'} />
+            ))}
+          </span>
+          <span className="poster-play">
+            <svg viewBox="0 0 16 16">
+              <path d="M4 2.5v11a.8.8 0 0 0 1.2.7l8.6-5.5a.8.8 0 0 0 0-1.4L5.2 1.8A.8.8 0 0 0 4 2.5z" />
+            </svg>
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
 );
 
 export function SessionStory() {
-  const isClient = useIsClient();
   const reduceMotion = useReducedMotion();
   const playerRef = useRef<PlayerRef>(null);
   const filmRef = useRef<HTMLDivElement>(null);
-  const [frame, setFrame] = useState(0);
+  const { near, visible } = useViewport(filmRef);
+  const [ready, setReady] = useState(false);
+  const [frame, setFrame] = useState(STORY_POSTER_FRAME);
   const [paused, setPaused] = useState(false);
   const playing = !reduceMotion && !paused;
-  usePlayWhenVisible(playerRef, filmRef, isClient && playing);
+  usePlayback(playerRef, ready && visible && playing);
 
-  useEffect(() => {
-    const player = playerRef.current;
-    if (!player) return undefined;
-    const onFrame = (event: { detail: { frame: number } }) =>
-      setFrame(event.detail.frame);
-    player.addEventListener('frameupdate', onFrame);
-    return () => player.removeEventListener('frameupdate', onFrame);
-  }, [isClient]);
-
-  if (!isClient) return FALLBACK;
+  useEffect(prefetchPlayersWhenIdle, []);
+  const onReady = useCallback(() => setReady(true), []);
 
   const step = STORY_STEPS.reduce(
     (current, s, i) => (frame >= s.from ? i : current),
@@ -108,33 +190,28 @@ export function SessionStory() {
     playerRef.current?.seekTo(STORY_STEPS[i].from + (i === 0 ? 0 : 12));
   };
 
-  const togglePlayback = () => {
-    if (playing) {
-      playerRef.current?.pause();
-      setPaused(true);
-    } else {
-      playerRef.current?.play();
-      setPaused(false);
-    }
-  };
+  const togglePlayback = () => setPaused(playing);
 
   return (
     <div className="story">
       <div className="story-film" ref={filmRef}>
-        <Player
-          ref={playerRef}
-          component={Story}
-          durationInFrames={STORY_DURATION}
-          compositionWidth={720}
-          compositionHeight={720}
-          fps={FPS}
-          loop
-          controls={false}
-          clickToPlay={false}
-          initialFrame={reduceMotion ? 150 : 0}
-          acknowledgeRemotionLicense
-          style={{ width: '100%', height: '100%' }}
-        />
+        {STORY_POSTER}
+        {near && (
+          <KeepStill>
+            <Suspense fallback={null}>
+              <div className="story-player">
+                <StoryPlayer
+                  playerRef={playerRef}
+                  initialFrame={
+                    reduceMotion ? STORY_STILL_FRAME : STORY_POSTER_FRAME
+                  }
+                  onReady={onReady}
+                  onFrame={setFrame}
+                />
+              </div>
+            </Suspense>
+          </KeepStill>
+        )}
       </div>
       <div className="story-steps">
         <ol>
@@ -170,30 +247,17 @@ export function SessionStory() {
 
 /** The app icon's mark, animated like the iOS splash screen. */
 export function RitliMark() {
-  const isClient = useIsClient();
   const reduceMotion = useReducedMotion();
   const playerRef = useRef<PlayerRef>(null);
   const boxRef = useRef<HTMLDivElement>(null);
-  usePlayWhenVisible(playerRef, boxRef, isClient && !reduceMotion);
+  const { near, visible } = useViewport(boxRef);
+  const [ready, setReady] = useState(false);
+  const onReady = useCallback(() => setReady(true), []);
+  usePlayback(playerRef, ready && visible && !reduceMotion);
 
   return (
     <div className="mark" ref={boxRef} aria-hidden="true">
-      {isClient ? (
-        <Player
-          ref={playerRef}
-          component={Mark}
-          durationInFrames={MARK_DURATION}
-          compositionWidth={200}
-          compositionHeight={200}
-          fps={FPS}
-          loop
-          controls={false}
-          clickToPlay={false}
-          initialFrame={reduceMotion ? 60 : 0}
-          acknowledgeRemotionLicense
-          style={{ width: '100%', height: '100%' }}
-        />
-      ) : (
+      {!ready && (
         <svg width="120" height="120" viewBox="0 0 192 192" fill="none">
           <path
             d="M72 66v62M72 104c0-22 12-36 32-36"
@@ -209,6 +273,17 @@ export function RitliMark() {
             strokeLinecap="round"
           />
         </svg>
+      )}
+      {near && (
+        <KeepStill>
+          <Suspense fallback={null}>
+            <MarkPlayer
+              playerRef={playerRef}
+              initialFrame={reduceMotion ? 60 : 0}
+              onReady={onReady}
+            />
+          </Suspense>
+        </KeepStill>
       )}
     </div>
   );

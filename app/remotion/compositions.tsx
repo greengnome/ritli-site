@@ -16,7 +16,6 @@ import {
 // viewer's light or dark theme without re-rendering.
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
-export const FPS = 30;
 
 const fmt = (seconds: number) => {
   const s = Math.max(0, Math.ceil(seconds));
@@ -34,30 +33,6 @@ const fmtMinutes = (min: number) => {
 // ---------------------------------------------------------------------------
 // The story: pick a task, focus, take a break, watch it add up.
 // ---------------------------------------------------------------------------
-
-export const STORY_DURATION = 14 * FPS;
-export const STORY_STEPS = [
-  {
-    from: 0,
-    title: 'Pick one thing',
-    body: 'Start focus straight from a task.',
-  },
-  {
-    from: 100,
-    title: 'Give it your focus',
-    body: 'The screen fills with colour and the ring counts down.',
-  },
-  {
-    from: 230,
-    title: 'Take a real break',
-    body: 'Green means rest. The Lock Screen keeps time for you.',
-  },
-  {
-    from: 330,
-    title: 'Watch it add up',
-    body: 'Each session lands on today in your stats.',
-  },
-];
 
 const TASKS = [
   {
@@ -83,7 +58,7 @@ const TaskScene = () => {
       style={{
         alignItems: 'center',
         justifyContent: 'center',
-        opacity: interpolate(frame, [92, 108], [1, 0], clamp),
+        opacity: interpolate(frame, [72, 88], [1, 0], clamp),
       }}
     >
       <Interactive.Div
@@ -186,13 +161,13 @@ const TaskScene = () => {
                 borderRadius: 32,
                 position: 'relative',
                 background:
-                  i === 0 && frame >= 64 ? 'var(--terra)' : 'var(--sand)',
+                  i === 0 && frame >= 44 ? 'var(--terra)' : 'var(--sand)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 scale:
                   i === 0
-                    ? interpolate(frame, [60, 66, 74], [1, 0.86, 1], clamp)
+                    ? interpolate(frame, [40, 46, 54], [1, 0.86, 1], clamp)
                     : 1,
               }}
             >
@@ -203,13 +178,13 @@ const TaskScene = () => {
                     inset: 0,
                     borderRadius: 32,
                     border: '3px solid var(--terra)',
-                    scale: interpolate(frame, [62, 84], [1, 1.9], {
+                    scale: interpolate(frame, [42, 64], [1, 1.9], {
                       ...clamp,
                       easing: easeOut,
                     }),
                     opacity: interpolate(
                       frame,
-                      [62, 64, 84],
+                      [42, 44, 64],
                       [0, 0.7, 0],
                       clamp,
                     ),
@@ -219,7 +194,7 @@ const TaskScene = () => {
               <svg width="22" height="22" viewBox="0 0 16 16">
                 <path
                   d="M4 2.5v11a.8.8 0 0 0 1.2.7l8.6-5.5a.8.8 0 0 0 0-1.4L5.2 1.8A.8.8 0 0 0 4 2.5z"
-                  fill={i === 0 && frame >= 64 ? '#FFFFFF' : 'var(--terra-ink)'}
+                  fill={i === 0 && frame >= 44 ? '#FFFFFF' : 'var(--terra-ink)'}
                 />
               </svg>
             </Interactive.Div>
@@ -662,16 +637,16 @@ export const Story = () => (
     name="Story"
     style={{ background: 'var(--sand)', overflow: 'hidden' }}
   >
-    <Sequence name="Pick" from={0} durationInFrames={110}>
+    <Sequence name="Pick" from={0} durationInFrames={90}>
       <TaskScene />
     </Sequence>
-    <Sequence name="Focus" from={96} durationInFrames={140}>
+    <Sequence name="Focus" from={76} durationInFrames={140}>
       <FocusScene />
     </Sequence>
-    <Sequence name="Break" from={226} durationInFrames={110}>
+    <Sequence name="Break" from={206} durationInFrames={110}>
       <BreakScene />
     </Sequence>
-    <Sequence name="Week" from={330} durationInFrames={90}>
+    <Sequence name="Week" from={310} durationInFrames={90}>
       <WeekScene />
     </Sequence>
   </AbsoluteFill>
@@ -681,8 +656,6 @@ export const Story = () => (
 // The mark: the "r" rises, the tomato drops and lands, the leaf sprouts.
 // The same motion as the app's splash screen.
 // ---------------------------------------------------------------------------
-
-export const MARK_DURATION = 4 * FPS;
 
 export const Mark = () => {
   const frame = useCurrentFrame();
