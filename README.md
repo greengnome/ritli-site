@@ -17,13 +17,13 @@ npm run dev
 npm run build
 ```
 
-Edit `app/page.tsx` for page content and `app/globals.css` for styling. The header, hero, and closing calls to action use the shared `TESTFLIGHT_URL` in `app/page.tsx`: [join the Ritli beta](https://testflight.apple.com/join/5WhnPpFG). Deploy these calls to action to production only after Apple approves the external beta and the public link accepts testers. These links do not publish the app to the App Store. Add the verified App Store link when the app is publicly released. The timer, tasks and chart on this page show example activity, not user data.
+Edit `app/page.tsx` for page content and `app/globals.css` for styling. The header, hero, and closing calls to action all use the shared `APP_STORE_URL` in `app/brand.tsx`: [Ritli on the App Store](https://apps.apple.com/il/app/ritli-focus-timer/id6809929070). Change the link there and every button follows. The timer, tasks and chart on this page show example activity, not user data.
 
 ## Privacy policy
 
 The `/privacy` route is implemented in `app/privacy/page.tsx` and linked from the homepage footer. Edit that page for the public app-policy wording and its revision date; keep developer review notes out of the public content. The page uses the existing brand styles, responsive section navigation, and the support address `kirillgl.dev@gmail.com`.
 
-Before publishing, verify Vercel's enabled services and visitor-data handling, confirm the policy matches actual support and beta-data practices, and set the publication/effective date. After deployment, check `/privacy` on the public production URL while signed out before using it in the iOS app or App Store Connect. The local addition does not deploy the site or update those URLs automatically.
+Before publishing, verify Vercel's enabled services and visitor-data handling, confirm the policy matches actual support practices, and set the publication/effective date. After deployment, check `/privacy` on the public production URL while signed out before using it in the iOS app or App Store Connect. The local addition does not deploy the site or update those URLs automatically.
 
 ## Motion
 

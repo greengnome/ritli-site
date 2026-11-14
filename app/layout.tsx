@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Ritli: a calm focus timer for iPhone',
   description:
-    'Pick one thing and give it 25 minutes. Ritli is a focus timer for iPhone with tasks, real breaks, a Lock Screen timer and clear weekly stats. Join the beta on TestFlight.',
+    'Pick one thing and give it 25 minutes. Ritli is a focus timer for iPhone with tasks, real breaks, a Lock Screen timer and clear weekly stats. Download it on the App Store.',
   icons: { icon: '/ritli-icon.png', apple: '/ritli-icon.png' },
 };
 

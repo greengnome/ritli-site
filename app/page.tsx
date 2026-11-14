@@ -1,4 +1,4 @@
-import { RitliIcon, SiteFooter, SiteHeader, TESTFLIGHT_URL } from './brand';
+import { APP_STORE_URL, RitliIcon, SiteFooter, SiteHeader } from './brand';
 import { RitliExperience } from './ritli-experience';
 import { RitliMark, SessionStory } from './session-story';
 export default function Home() {
@@ -16,8 +16,8 @@ export default function Home() {
             <a href="#week">Your week</a>
             <a href="#privacy">Privacy</a>
           </nav>
-          <a className="cta small" href={TESTFLIGHT_URL}>
-            Join the beta
+          <a className="cta small" href={APP_STORE_URL}>
+            Get the app
           </a>
         </SiteHeader>
       </div>
@@ -86,15 +86,15 @@ export default function Home() {
           <div className="wrap close">
             <RitliMark />
             <h2 id="close-title" className="display rise">
-              Try Ritli before it reaches the App Store.
+              Ritli is on the App Store.
             </h2>
             <p className="lede rise">
-              Join the TestFlight beta on your iPhone and tell us what to make
-              better.
+              Download it on your iPhone, pick one thing and start your first
+              25 minutes.
             </p>
-            <a className="cta" href={TESTFLIGHT_URL}>
+            <a className="cta" href={APP_STORE_URL}>
               <RitliIcon size={22} />
-              Join the beta on TestFlight
+              Get Ritli on the App Store
             </a>
           </div>
         </section>

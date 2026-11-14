@@ -4,14 +4,13 @@ import { SiteFooter, SiteHeader } from '../brand';
 export const metadata: Metadata = {
   title: 'Privacy Policy — Ritli',
   description:
-    'How Ritli handles local task and timer data, notifications, support messages, and TestFlight feedback. Learn about your privacy choices and deleting data.',
+    'How Ritli handles local task and timer data, notifications, and support messages. Learn about your privacy choices and deleting data.',
 };
 
 const sections = [
   ['local-data', 'Information stored by the app'],
   ['notifications', 'Notifications & Lock Screen'],
   ['support', 'Support messages'],
-  ['testflight', 'TestFlight beta testing'],
   ['deletion', 'Retention, deletion & backups'],
   ['choices', 'Your privacy choices'],
   ['changes', 'Policy changes'],
@@ -34,13 +33,13 @@ export default function PrivacyPolicy() {
         <header className="privacy-intro">
           <p className="privacy-meta">
             Ritli: Focus Timer · Last updated{' '}
-            <time dateTime="2026-09-08">September 8, 2026</time>
+            <time dateTime="2026-11-14">November 14, 2026</time>
           </p>
           <h1>Privacy Policy</h1>
           <p>
             Ritli: Focus Timer is provided by Kirill Gladkov (“we,” “us”). This
             policy explains how we handle information when you use the Ritli iOS
-            app, test its beta versions, or contact us for support.
+            app or contact us for support.
           </p>
           <p>
             For privacy questions or requests, contact{' '}
@@ -138,37 +137,6 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section id="testflight" aria-labelledby="testflight-title">
-              <h2 id="testflight-title">TestFlight beta testing</h2>
-              <p>
-                When you test Ritli through TestFlight, Apple automatically
-                collects and shares beta crash logs and usage information with
-                us. Depending on how you join testing and submit feedback, we
-                may also receive your name, email address, device and
-                app-version information, comments, and screenshots. Personal
-                details entered in a screenshot may be visible to us.
-              </p>
-              <p>
-                We use beta information to investigate issues and improve Ritli,
-                not for advertising. We do not share TestFlight beta information
-                with third parties. Apple’s processing is described in{' '}
-                <a href="https://www.apple.com/legal/privacy/data/en/test-flight/">
-                  TestFlight &amp; Privacy
-                </a>
-                .
-              </p>
-              <p>
-                You can leave the beta through <strong>Stop Testing</strong> in
-                TestFlight. This stops your participation but does not
-                automatically delete information already shared. Contact us
-                about information we hold, and use{' '}
-                <a href="https://privacy.apple.com/">
-                  Apple’s Data and Privacy page
-                </a>{' '}
-                for information Apple controls.
-              </p>
-            </section>
-
             <section id="deletion" aria-labelledby="deletion-title">
               <h2 id="deletion-title">Retention, deletion, and backups</h2>
               <p>
@@ -207,12 +175,9 @@ export default function PrivacyPolicy() {
                 <strong>Information sent to us:</strong> We retain support
                 correspondence only for as long as needed to handle the request,
                 resolve related problems, and keep records that are necessary
-                for security or legal obligations. Beta information we
-                separately retain is kept only while needed to investigate
-                issues and improve the tested functionality. You may request
-                deletion using the contact email above; we will explain any
-                information we must retain and why. Apple’s retention of
-                information in TestFlight is governed separately by its policy.
+                for security or legal obligations. You may request deletion
+                using the contact email above; we will explain any information
+                we must retain and why.
               </p>
             </section>
 
@@ -220,9 +185,9 @@ export default function PrivacyPolicy() {
               <h2 id="choices-title">Your privacy choices</h2>
               <p>
                 You can use the local timer and task features without creating
-                an account, sending support messages, or joining TestFlight. You
-                can change notification and Lock Screen preferences and remove
-                local information using the controls above.
+                an account or sending support messages. You can change
+                notification and Lock Screen preferences and remove local
+                information using the controls above.
               </p>
               <p>
                 Depending on the laws that apply to you, you may have rights to
