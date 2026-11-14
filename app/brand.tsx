@@ -1,4 +1,5 @@
-export const TESTFLIGHT_URL = 'https://testflight.apple.com/join/5WhnPpFG';
+export const APP_STORE_URL =
+  'https://apps.apple.com/il/app/ritli-focus-timer/id6809929070';
 
 /** The app icon's mark: a rounded "r" and a small tomato, on its ink tile. */
 export function RitliIcon({ size = 40 }: { size?: number }) {

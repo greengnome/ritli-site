@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useReducer, useRef, type ReactNode } from 'react';
-import { TESTFLIGHT_URL } from './brand';
+import { APP_STORE_URL } from './brand';
 
 /*
  * A working Ritli timer. The hero phone, the Lock Screen band, the task list
@@ -355,12 +355,10 @@ export function RitliExperience({ story }: { story: ReactNode }) {
             even when the app is closed.
           </p>
           <div className="hero-actions">
-            <a className="cta" href={TESTFLIGHT_URL}>
-              Join the beta on TestFlight
+            <a className="cta" href={APP_STORE_URL}>
+              Get Ritli on the App Store
             </a>
-            <span className="note">
-              Free while in beta · iPhone · No account
-            </span>
+            <span className="note">iPhone · No account · No ads</span>
           </div>
         </div>
 
