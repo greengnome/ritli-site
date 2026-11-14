@@ -23,7 +23,7 @@ Edit `app/page.tsx` for page content and `app/globals.css` for styling. The head
 
 The `/privacy` route is implemented in `app/privacy/page.tsx` and linked from the homepage footer. Edit that page for the public app-policy wording and its revision date; keep developer review notes out of the public content. The page uses the existing brand styles, responsive section navigation, and the support address `kirillgl.dev@gmail.com`.
 
-Before publishing, verify Vercel's enabled services and visitor-data handling, confirm the policy matches actual support and beta-data practices, and set the publication/effective date. After deployment, check `/privacy` on the public production URL while signed out before using it in the iOS app or App Store Connect. The local addition does not deploy the site or update those URLs automatically.
+Before publishing, verify Vercel's enabled services and visitor-data handling, confirm the policy matches actual support practices, and set the publication/effective date. After deployment, check `/privacy` on the public production URL while signed out before using it in the iOS app or App Store Connect. The local addition does not deploy the site or update those URLs automatically.
 
 ## Motion
 
