@@ -10,14 +10,14 @@ export const SITE_URL = (
 
 export const SITE_NAME = 'Ritli';
 
-export const SITE_TITLE = 'Ritli — Focus Timer & Task Planner for iPhone';
+export const SITE_TITLE = 'Ritli: a calm focus timer for iPhone';
 
 export const SITE_DESCRIPTION =
-  'Ritli is a focus timer and task planner for iPhone. Run focus sessions with breaks, plan tasks by category, and see where your time goes. Join the beta on TestFlight.';
+  'Pick one thing and give it 25 minutes. Ritli is a focus timer for iPhone with tasks, real breaks, a Lock Screen timer and clear weekly stats. Download it on the App Store.';
 
 export const OG_IMAGE = {
   url: '/og-image.png',
   width: 1200,
   height: 630,
-  alt: 'Ritli — a little focus, a lot forward. Focus timer and task planner for iPhone.',
+  alt: 'Ritli: pick one thing, give it 25 minutes. A calm focus timer for iPhone.',
 };
