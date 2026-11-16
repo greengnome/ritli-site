@@ -1,9 +1,41 @@
+import type { Metadata } from 'next';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../lib/site';
 import { APP_STORE_URL, RitliIcon, SiteFooter, SiteHeader } from './brand';
 import { RitliExperience } from './ritli-experience';
 import { RitliMark, SessionStory } from './session-story';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
+
+// Structured data describing the app to search engines.
+const APP_JSON_LD = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: SITE_NAME,
+  alternateName: 'Ritli: Focus Timer',
+  description: SITE_DESCRIPTION,
+  url: `${SITE_URL}/`,
+  image: `${SITE_URL}/ritli-icon.png`,
+  installUrl: APP_STORE_URL,
+  applicationCategory: 'ProductivityApplication',
+  operatingSystem: 'iOS',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  featureList: [
+    'Focus timer with real breaks',
+    'Tasks to focus on',
+    'Lock Screen timer',
+    'Weekly focus stats',
+  ],
+}).replace(/</g, '\\u003c');
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: APP_JSON_LD }}
+      />
       <a href="#main" className="skip-link">
         Skip to content
       </a>

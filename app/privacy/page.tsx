@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { ArrowLeft } from 'lucide-react';
 import { SiteFooter, SiteHeader } from '../brand';
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Ritli',
+  title: 'Privacy Policy',
+  alternates: { canonical: '/privacy' },
   description:
     'How Ritli handles local task and timer data, notifications, and support messages. Learn about your privacy choices and deleting data.',
 };
