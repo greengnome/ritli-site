@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '../lib/site';
 import { RitliMotion } from './ritli-motion';
 import {
   ArrowUpRight,
@@ -15,6 +17,31 @@ import {
 } from 'lucide-react';
 
 const TESTFLIGHT_URL = 'https://testflight.apple.com/join/5WhnPpFG';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
+
+// Structured data describing the app to search engines. No price or rating is
+// declared until the App Store listing exists.
+const APP_JSON_LD = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: SITE_NAME,
+  alternateName: 'Ritli: Focus Timer',
+  description: SITE_DESCRIPTION,
+  url: `${SITE_URL}/`,
+  image: `${SITE_URL}/ritli-icon.png`,
+  applicationCategory: 'ProductivityApplication',
+  operatingSystem: 'iOS',
+  featureList: [
+    'Focus timer with custom focus and break lengths',
+    'Task planning by category',
+    'Saved routines',
+    'Focus statistics and session history',
+    'Live Activities on the Lock Screen',
+  ],
+}).replace(/</g, '\\u003c');
 
 function Brand({ footer = false }: { footer?: boolean }) {
   return (
@@ -109,6 +136,10 @@ function AppPreview() {
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: APP_JSON_LD }}
+      />
       <a href="#main" className="skip-link">
         Skip to content
       </a>

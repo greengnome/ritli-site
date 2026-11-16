@@ -25,6 +25,12 @@ The `/privacy` route is implemented in `app/privacy/page.tsx` and linked from th
 
 Before publishing, verify Vercel's enabled services and visitor-data handling, confirm the policy matches actual support and beta-data practices, and set the publication/effective date. After deployment, check `/privacy` on the public production URL while signed out before using it in the iOS app or App Store Connect. The local addition does not deploy the site or update those URLs automatically.
 
+## SEO
+
+`lib/site.ts` holds the site title, description, and public origin. The origin comes from `SITE_URL` if set, otherwise from Vercel's `VERCEL_PROJECT_PRODUCTION_URL`, so canonical URLs, Open Graph tags, and the sitemap always point at the production domain. Set `SITE_URL` in Vercel if the automatically chosen domain is not the one you want indexed.
+
+`app/layout.tsx` defines the shared metadata and social preview (`public/og-image.png`, 1200×630). Each page sets its own canonical URL, and the homepage embeds `SoftwareApplication` structured data. `npm run build:vercel` finishes by running `scripts/write-seo-files.mjs`, which writes `robots.txt` and `sitemap.xml` into `dist/client`; add new pages to the list in that script.
+
 ## Motion
 
 GSAP and ScrollTrigger power the staged hero entrance, section reveals, growing chart bars, task-card stagger, desktop preview tilt/parallax, and reading progress line. `app/ritli-motion.tsx` scopes all animations to this page and cleans up animations, triggers, and pointer listeners on unmount. OS reduced-motion changes automatically restore the static layout. Content remains visible without JavaScript; scrolling remains native.
