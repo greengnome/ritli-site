@@ -6,6 +6,7 @@ import {
   SITE_TITLE,
   SITE_URL,
 } from '../lib/site';
+import { APP_STORE_ID } from './brand';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -32,6 +33,8 @@ export const metadata: Metadata = {
     images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
+  // Safari on iPhone shows a banner that opens the App Store listing.
+  itunes: { appId: APP_STORE_ID },
 };
 
 export const viewport: Viewport = {

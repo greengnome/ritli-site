@@ -17,7 +17,7 @@ npm run dev
 npm run build
 ```
 
-Edit `app/page.tsx` for page content and `app/globals.css` for styling. The header, hero, and closing calls to action all use the shared `APP_STORE_URL` in `app/brand.tsx`: [Ritli on the App Store](https://apps.apple.com/il/app/ritli-focus-timer/id6809929070). Change the link there and every button follows. The timer, tasks and chart on this page show example activity, not user data.
+Edit `app/page.tsx` for page content and `app/globals.css` for styling. The header, hero, and closing calls to action all use the shared `APP_STORE_URL` in `app/brand.tsx`: [Ritli on the App Store](https://apps.apple.com/app/ritli-focus-timer/id6809929070). The link has no country code, so Apple opens each visitor's own storefront. Change the link there and every button follows; the Smart App Banner in `app/layout.tsx` uses `APP_STORE_ID` from the same file. The timer, tasks and chart on this page show example activity, not user data.
 
 ## Privacy policy
 
@@ -29,7 +29,7 @@ Before publishing, verify Vercel's enabled services and visitor-data handling, c
 
 `lib/site.ts` holds the site title, description, and public origin. The origin comes from `SITE_URL` if set, otherwise from Vercel's `VERCEL_PROJECT_PRODUCTION_URL`, so canonical URLs, Open Graph tags, and the sitemap always point at the production domain. Set `SITE_URL` in Vercel if the automatically chosen domain is not the one you want indexed.
 
-`app/layout.tsx` defines the shared metadata and social preview (`public/og-image.png`, 1200×630). Each page sets its own canonical URL, and the homepage embeds `SoftwareApplication` structured data. `npm run build:vercel` finishes by running `scripts/write-seo-files.mjs`, which writes `robots.txt` and `sitemap.xml` into `dist/client`; add new pages to the list in that script.
+`app/layout.tsx` defines the shared metadata and social preview (`public/og-image.png`, 1200×630). Each page sets its own canonical URL, and the homepage embeds `SoftwareApplication` and `FAQPage` structured data. The FAQ section and its structured data both come from the `FAQ` list in `app/page.tsx`. `npm run build:vercel` finishes by running `scripts/write-seo-files.mjs`, which writes `robots.txt` and `sitemap.xml` into `dist/client`; add new pages to the list in that script.
 
 ## Motion
 
