@@ -1099,6 +1099,32 @@ h2.display {
   margin-top: 24px;
   font-weight: 600;
 }
+.faq-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 32px 48px;
+  margin: 40px 0 0;
+}
+.faq-list div {
+  border-top: 1px solid var(--hair);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.faq-list dt {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1.25;
+}
+.faq-list dd {
+  margin: 0;
+  color: var(--stone);
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 34em;
+}
 .close {
   display: flex;
   flex-direction: column;

@@ -1,42 +1,86 @@
-# Ritli landing page
+# Ritli
 
-A responsive landing page for the Ritli iPhone focus app. Built with React, Vinext, CSS and Remotion, using the app’s real icon and product features.
+Ritli is a calm focus timer for iPhone: pick one thing, give it 25 minutes, then take a real break. This repository is the app's website, which introduces Ritli and sends visitors to the App Store.
 
-## Local development
+[Get Ritli on the App Store](https://apps.apple.com/app/ritli-focus-timer/id6809929070)
 
-Use **Node.js 24 LTS**. The project declares `24.x` in `package.json` and `24` in `.nvmrc`, keeping local development and Vercel on the same supported major version while allowing security and patch updates. If you use nvm, run `nvm install` and `nvm use` in this directory first; otherwise select Node 24 with your preferred installer or version manager.
+![The Ritli homepage: the headline "Pick one thing. Give it 25 minutes." beside a phone showing a 25-minute focus timer](docs/hero.png)
+
+## What Ritli does
+
+- **Focus sessions with real breaks.** 25 minutes of focus, a short break, and a longer break after four sessions. The lengths can be changed and saved as routines.
+- **Tasks that become sessions.** Each task gets an estimate in focus sessions, starts straight from the list, and is checked off when its sessions are done.
+- **A timer on the Lock Screen.** The countdown shows on the Lock Screen and in the Dynamic Island, and keeps accurate time when the app is closed.
+- **A clear picture of the week.** Focus time by day, week, month and year, with a calendar of every session.
+- **Private by design.** No account, no ads, no analytics. Tasks, routines and history stay on the iPhone.
+
+## What the website shows
+
+The homepage walks a visitor through the app in the order they would use it:
+
+1. **A working timer.** The phone at the top is a live Ritli timer that visitors can start, pause and speed up.
+2. **How a session goes.** A short animated walkthrough of the four steps of a session.
+3. **Lock Screen, tasks and the week.** These react to the timer above: finish a session there and it lands on a task and on today's bar in the chart.
+4. **Privacy.** What Ritli does and doesn't keep, with a link to the full policy.
+5. **Common questions.** Price, Pomodoro, accounts, stats and supported iPhones.
+6. **Download.** The closing call to action.
+
+**The timer on the Lock Screen**
+
+![The Lock Screen section, showing the countdown as a Lock Screen card and in the Dynamic Island](docs/lock-screen.png)
+
+**Tasks with session estimates**
+
+![The tasks section, showing a task list with session estimates and play buttons](docs/tasks.png)
+
+**The week at a glance**
+
+![The week section, showing a bar chart of focus time for each day](docs/week.png)
+
+The tasks and the weekly chart are example data, not anyone's real activity.
+
+There is one more page, the **Privacy Policy** at `/privacy`. It is the policy linked from the app and from App Store Connect, so its wording has to match what the app and its support process really do.
+
+## Look and feel
+
+The site follows the iOS app's design: paper and ink backgrounds, coral and terracotta for focus, leaf green for breaks, Nunito for headings and Inter for text. It supports light and dark mode.
+
+All motion is optional. Visitors who turn on Reduce Motion, or whose browser doesn't support an effect, see the finished page with still images in place of the animations.
+
+## Being found and shared
+
+- **Search.** Each page tells search engines its preferred address, and the site publishes a sitemap. The homepage also describes the app and its FAQ in a format search engines can read.
+- **Sharing.** Links shared in messengers and social networks show the preview card below (`public/og-image.png`).
+- **iPhone visitors.** Safari shows a banner that opens Ritli in the App Store.
+- **App Store link.** Every button uses one link with no country code, so Apple opens each visitor's own storefront.
+
+<img src="public/og-image.png" alt="The share preview card: the Ritli icon beside the headline and the line &quot;A calm focus timer for iPhone&quot;" width="480">
+
+## Making changes
+
+| To change | Edit |
+| --- | --- |
+| Homepage text, sections and the FAQ list | `app/page.tsx` |
+| The live timer, Lock Screen, tasks and week sections | `app/ritli-experience.tsx` |
+| The animated walkthrough and logo | `app/remotion/` and `app/session-story.tsx` |
+| Colours, type and layout | `app/globals.css` |
+| The App Store link and the Ritli logo | `app/brand.tsx` |
+| Privacy policy wording and its date | `app/privacy/page.tsx` |
+| Page title, description and site address used for search and sharing | `lib/site.ts` |
+| The list of pages in the sitemap | `scripts/write-seo-files.mjs` |
+| The screenshots in this README | `docs/` |
+
+To preview the site on your machine, use Node.js 24:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-## Production build
+## Publishing
 
-```sh
-npm run build
-```
+The site is hosted on Vercel, which builds it with `npm run build:vercel` and publishes the result as a static site.
 
-Edit `app/page.tsx` for page content and `app/globals.css` for styling. The header, hero, and closing calls to action all use the shared `APP_STORE_URL` in `app/brand.tsx`: [Ritli on the App Store](https://apps.apple.com/il/app/ritli-focus-timer/id6809929070). Change the link there and every button follows. The timer, tasks and chart on this page show example activity, not user data.
+Search engines and share previews need the site's public address. Vercel supplies its production domain automatically; if that is not the address you want people to find, set a `SITE_URL` environment variable in the Vercel project.
 
-## Privacy policy
-
-The `/privacy` route is implemented in `app/privacy/page.tsx` and linked from the homepage footer. Edit that page for the public app-policy wording and its revision date; keep developer review notes out of the public content. The page uses the existing brand styles, responsive section navigation, and the support address `kirillgl.dev@gmail.com`.
-
-Before publishing, verify Vercel's enabled services and visitor-data handling, confirm the policy matches actual support practices, and set the publication/effective date. After deployment, check `/privacy` on the public production URL while signed out before using it in the iOS app or App Store Connect. The local addition does not deploy the site or update those URLs automatically.
-
-## SEO
-
-`lib/site.ts` holds the site title, description, and public origin. The origin comes from `SITE_URL` if set, otherwise from Vercel's `VERCEL_PROJECT_PRODUCTION_URL`, so canonical URLs, Open Graph tags, and the sitemap always point at the production domain. Set `SITE_URL` in Vercel if the automatically chosen domain is not the one you want indexed.
-
-`app/layout.tsx` defines the shared metadata and social preview (`public/og-image.png`, 1200×630). Each page sets its own canonical URL, and the homepage embeds `SoftwareApplication` structured data. `npm run build:vercel` finishes by running `scripts/write-seo-files.mjs`, which writes `robots.txt` and `sitemap.xml` into `dist/client`; add new pages to the list in that script.
-
-## Motion
-
-The page has three kinds of motion, all optional:
-
-- **Live timer** (`app/ritli-experience.tsx`): a working Ritli timer in the hero. The Lock Screen card, the task list and the week chart read from the same state, so a session finished in the hero lands on a task and on today's bar. The tasks and the week are example data.
-- **Remotion films** (`app/remotion/compositions.tsx`, played by `app/remotion/players.tsx`): the "How a session goes" walkthrough and the animated logo in the closing section. Remotion loads in its own chunk, once the page is idle or a film nears the screen, so the rest of the page becomes interactive without it. Until then `app/session-story.tsx` shows stills (a CSS copy of the story's opening frame and a static logo), and they stay if the chunk fails to load. Shared timing lives in `app/remotion/timeline.ts`, which has no Remotion imports. Films play while on screen and show a still frame with Reduce Motion. They use the page's CSS colour tokens, so they follow light and dark mode.
-- **Scroll-driven CSS** (end of `app/globals.css`): sections rise in, coloured bands open to full width, and a reading-progress bar runs along the top. It uses `animation-timeline`, so browsers without support and visitors with Reduce Motion see the finished page.
-
-Colours, type and the icon follow the iOS app's redesign: paper, ink, coral and terracotta, leaf green for breaks, Nunito for headings and Inter for text (loaded from Google Fonts).
+Before publishing a change to the privacy policy, confirm it matches actual support practices and update its date. After publishing, open `/privacy` on the live site while signed out before pointing the app or App Store Connect at it.

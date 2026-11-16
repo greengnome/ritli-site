@@ -1,5 +1,7 @@
-export const APP_STORE_URL =
-  'https://apps.apple.com/il/app/ritli-focus-timer/id6809929070';
+export const APP_STORE_ID = '6809929070';
+
+// No country code in the path, so Apple sends each visitor to their own store.
+export const APP_STORE_URL = `https://apps.apple.com/app/ritli-focus-timer/id${APP_STORE_ID}`;
 
 /** The app icon's mark: a rounded "r" and a small tomato, on its ink tile. */
 export function RitliIcon({ size = 40 }: { size?: number }) {

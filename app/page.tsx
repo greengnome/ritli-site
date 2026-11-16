@@ -29,12 +29,54 @@ const APP_JSON_LD = JSON.stringify({
   ],
 }).replace(/</g, '\\u003c');
 
+// One list feeds both the FAQ section and its structured data.
+const FAQ = [
+  {
+    q: 'Is Ritli free?',
+    a: 'Yes. Ritli is free to download on the App Store, and it has no ads.',
+  },
+  {
+    q: 'Is Ritli a Pomodoro timer?',
+    a: 'Yes. It follows the Pomodoro technique: 25 minutes of focus, a short break, and a longer break after four sessions. You can change the focus and break lengths and save them as routines.',
+  },
+  {
+    q: 'Does the timer keep running when I lock my iPhone?',
+    a: 'Yes. Ritli keeps accurate time even when the app is closed, and the countdown shows on the Lock Screen and in the Dynamic Island.',
+  },
+  {
+    q: 'Do I need an account?',
+    a: 'No. Open the app and start. Your tasks, routines and session history stay on your iPhone and are not sent to a server.',
+  },
+  {
+    q: 'Can I see how much I have focused?',
+    a: 'Yes. Ritli shows your focus time by day, week, month and year, with a calendar of every session.',
+  },
+  {
+    q: 'Which iPhones does Ritli work on?',
+    a: 'Ritli needs iOS 17 or later.',
+  },
+];
+
+const FAQ_JSON_LD = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+}).replace(/</g, '\\u003c');
+
 export default function Home() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: APP_JSON_LD }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: FAQ_JSON_LD }}
       />
       <a href="#main" className="skip-link">
         Skip to content
@@ -111,6 +153,22 @@ export default function Home() {
             <a className="private-link" href="/privacy">
               Read the privacy policy
             </a>
+          </div>
+        </section>
+
+        <section id="faq" className="faq band" aria-labelledby="faq-title">
+          <div className="wrap">
+            <h2 id="faq-title" className="display rise">
+              Common questions.
+            </h2>
+            <dl className="faq-list">
+              {FAQ.map(({ q, a }) => (
+                <div key={q}>
+                  <dt>{q}</dt>
+                  <dd>{a}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
